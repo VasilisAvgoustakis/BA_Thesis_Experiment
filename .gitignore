@@ -79,3 +79,7 @@ models/distilgpt2-finetuned_gen0/checkpoint-31000/global_step31000/zero_pp_rank_
 metrics/__pycache__/__init__.cpython-310.pyc
 metrics/LexicalDiversity/__pycache__/__init__.cpython-310.pyc
 metrics/LexicalDiversity/__pycache__/lexical_diversity.cpython-310.pyc
+data/hd/prepro/combined0/test_combined.txt
+data/hd/prepro/combined0/train_combined.txt
+data/hd/prepro/combined0/valid_combined.txt
+data/sd/gen0/gen0_sd.txt
