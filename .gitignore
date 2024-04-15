@@ -176,3 +176,4 @@ models/distilgpt2-finetuned_gen0/checkpoint-5553/global_step5553/zero_pp_rank_1_
 metrics/SyntacticDiversity/__pycache__/syntactic_diversity.cpython-310.pyc
 metrics/SemanticDiversity/__pycache__/sementic_diversity.cpython-310.pyc
 outputs/gen0/story0.txt
+data/md/combined1/train1_combined.txt
