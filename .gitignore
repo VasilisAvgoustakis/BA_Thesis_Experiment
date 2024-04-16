@@ -210,3 +210,4 @@ models/distilgpt2-finetuned_gen1/checkpoint-51270/global_step51270/mp_rank_00_mo
 models/distilgpt2-finetuned_gen1/checkpoint-51270/global_step51270/zero_pp_rank_0_mp_rank_00_optim_states.pt
 models/distilgpt2-finetuned_gen1/checkpoint-51270/global_step51270/zero_pp_rank_1_mp_rank_00_optim_states.pt
 data/sd/gen1/gen1_sd.txt
+data/md/combined2/train2_combined.txt
