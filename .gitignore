@@ -300,3 +300,4 @@ models/distilgpt2-finetuned_gen0_100/checkpoint-11105/zero_to_fp32.py
 models/distilgpt2-finetuned_gen0_100/checkpoint-11105/global_step11105/mp_rank_00_model_states.pt
 models/distilgpt2-finetuned_gen0_100/checkpoint-11105/global_step11105/zero_pp_rank_0_mp_rank_00_optim_states.pt
 models/distilgpt2-finetuned_gen0_100/checkpoint-11105/global_step11105/zero_pp_rank_1_mp_rank_00_optim_states.pt
+data/md/mixed_gen1/mix1_train_combined.txt
