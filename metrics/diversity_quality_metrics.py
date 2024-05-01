@@ -7,6 +7,7 @@ import torch
 import numpy as np
 from nltk.tokenize import word_tokenize
 from collections import Counter
+from scipy.stats import gmean
 
 def read_data(file_path):
     """Read stories from the given file path where each story is separated by two newlines."""
@@ -15,16 +16,55 @@ def read_data(file_path):
     stories = content.split('\n\n')
     return stories
 
-def calculate_jaccard_similarity(stories, n=2):
-    """Calculate the mean Jaccard similarity based on n-grams across all pairs of stories."""
-    all_ngrams = [set(ngrams(word_tokenize(story.lower()), n)) for story in stories]
+# Define the function to preprocess the text
+def preprocess_text(text):
+    # Remove all special characters and retain words
+    return re.sub(r'[^\w\s]', '', text)
+
+# Define the function to calculate MS-Jaccard
+def calculate_ms_jaccard(real_stories, synthetic_stories, n=2, pseudocount=0.5):
+    """
+    Calculate the MS-Jaccard similarity based on n-grams across all stories,
+    smoothing results with a pseudocount to prevent zero penalties.
+    Normalization is per story.
+    """
+    def ngram_freq_per_sentence(stories, n):
+        ngram_freqs = []
+        for story in stories:
+            text = preprocess_text(story).lower()
+            ngram_counts = Counter(ngrams(word_tokenize(text), n))
+            num_sentences = len(text.split('.'))  # Example split on sentences
+            ngram_freqs.append({ngram: count / num_sentences for ngram, count in ngram_counts.items()})
+        return ngram_freqs
+
+    # Get normalized n-gram frequencies for both real and synthetic stories
+    real_ngram_freqs = ngram_freq_per_sentence(real_stories, n)
+    synthetic_ngram_freqs = ngram_freq_per_sentence(synthetic_stories, n)
+
+    # Aggregate the n-gram frequencies across all stories
+    real_freq = Counter()
+    synthetic_freq = Counter()
+    
+    for freqs in real_ngram_freqs:
+        real_freq.update(freqs)
+    for freqs in synthetic_ngram_freqs:
+        synthetic_freq.update(freqs)
+    
+    # Calculate the MS-Jaccard score for each n-gram and take the geometric mean
     scores = []
-    for i in range(len(all_ngrams)):
-        for j in range(i + 1, len(all_ngrams)):
-            inter = all_ngrams[i].intersection(all_ngrams[j])
-            union = all_ngrams[i].union(all_ngrams[j])
-            scores.append(len(inter) / len(union) if union else 0)
-    return np.mean(scores)
+    all_ngrams = set(real_freq.keys()) | set(synthetic_freq.keys())
+    for ngram in all_ngrams:
+        real_count = real_freq.get(ngram, pseudocount)
+        synthetic_count = synthetic_freq.get(ngram, pseudocount)
+        min_count = min(real_count, synthetic_count)
+        max_count = max(real_count, synthetic_count)
+        score = min_count / max_count
+        scores.append(score)
+    
+    # Compute the geometric mean of the scores
+    ms_jaccard_score = gmean(scores) if scores else 0
+
+    return ms_jaccard_score
 
 def calculate_feature_based_similarity(stories, model_name='bert-base-uncased'):
     """Calculate the feature-based similarity using embeddings from a pre-trained BERT model."""

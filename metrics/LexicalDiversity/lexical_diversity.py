@@ -29,6 +29,7 @@ def calculate_distinct_n(text, n=2):
 
 
 from nltk.translate.bleu_score import sentence_bleu
+from nltk.tokenize import word_tokenize
 
 def calculate_self_bleu(texts):
     """
@@ -41,13 +42,33 @@ def calculate_self_bleu(texts):
     - float: The average Self-BLEU score of the texts.
     """
     scores = []
+    
+    # Ensure that inputs are cleaned and non-empty
+    cleaned_texts = [text.strip() for text in texts if text.strip()]
+    
+    # Check if there are fewer than two valid texts
+    if len(cleaned_texts) < 2:
+        return 0
+
+
     for i, candidate in enumerate(texts):
+        if not candidate.strip():  # Skip empty candidates
+            continue
+        
         # Consider all other texts as references for the current candidate text
-        references = [texts[j].split() for j in range(len(texts)) if i != j]
-        candidate_tokens = candidate.split()
-        # Calculate the BLEU score for this text against all others
-        score = sentence_bleu(references, candidate_tokens, weights=(0.25, 0.25, 0.25, 0.25))
-        scores.append(score)
+        references = [word_tokenize(texts[j].lower()) for j in range(len(texts)) if i != j and texts[j].strip()]
+        candidate_tokens = word_tokenize(candidate.lower())
+        
+        if not references or not candidate_tokens:  # Skip if no valid data is available
+            continue
+        
+        try:
+            # Calculate the BLEU score for this text against all others
+            score = sentence_bleu(references, candidate_tokens, weights=(0.25, 0.25, 0.25, 0.25))
+            scores.append(score)
+        except Exception as e:
+            print(f"Error calculating BLEU for text index {i}: {e}")
+            continue  # Handle possible errors during BLEU calculation
     
     # Calculate the average score across all texts
     average_score = sum(scores) / len(scores) if scores else 0
