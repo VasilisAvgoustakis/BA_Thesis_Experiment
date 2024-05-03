@@ -469,3 +469,4 @@ models/distilgpt2-finetuned_gen5_0/checkpoint-9650/zero_to_fp32.py
 models/distilgpt2-finetuned_gen5_0/checkpoint-9650/global_step61500/mp_rank_00_model_states.pt
 models/distilgpt2-finetuned_gen5_0/checkpoint-9650/global_step61500/zero_pp_rank_0_mp_rank_00_optim_states.pt
 models/distilgpt2-finetuned_gen5_0/checkpoint-9650/global_step61500/zero_pp_rank_1_mp_rank_00_optim_states.pt
+data/sd/gen5/gen5_sd.txt
