@@ -502,3 +502,4 @@ models/distilgpt2-finetuned_gen6_0/checkpoint-19300/zero_to_fp32.py
 models/distilgpt2-finetuned_gen6_0/checkpoint-19300/global_step80800/mp_rank_00_model_states.pt
 models/distilgpt2-finetuned_gen6_0/checkpoint-19300/global_step80800/zero_pp_rank_0_mp_rank_00_optim_states.pt
 models/distilgpt2-finetuned_gen6_0/checkpoint-19300/global_step80800/zero_pp_rank_1_mp_rank_00_optim_states.pt
+data/sd/gen6/gen6_sd.txt
