@@ -29,15 +29,26 @@ def process_and_plot_csv_data_with_legend_ltr(file_paths, columns, eval_name, ou
     # Plot each column and save to the specified output directory
     plt.figure(figsize=(12,6))
     for column in columns:
-        plt.plot(data.index, data[column], marker='o', label=column)
-
+        plt.plot(data.index, data[column], marker='', label=column)
+        for i in range(len(data) - 1):
+            start_point = data.index[i]
+            end_point = data.index[i + 1]
+            start_value = data.loc[start_point, column]
+            end_value = data.loc[end_point, column]
+    
+           # Add triangles
+            if end_value > start_value:
+                plt.scatter(end_point, end_value, marker='^', color='green', s=100)
+            else:
+                plt.scatter(end_point, end_value, marker='v', color='red', s=100)
+        
     plt.title(f'{eval_name}, Model RP: {model_rp}, Batch RP: {generation_rp}')
     plt.xlabel('Generation')
     plt.ylabel('Values')
     plt.xticks(rotation=45)
     plt.grid(True)
     plt.tight_layout()
-    plt.legend(loc='lower right')
+    plt.legend(loc='upper right')
     plt.ylim(0,1.01)
 
     output_image_path = os.path.join(output_dir, f'{eval_name}_{model_rp}_{generation_rp}.jpeg')
@@ -74,7 +85,21 @@ def process_and_plot_csv_data_with_legend(file_paths, columns, eval_name, output
     # Plot each column and save to the specified output directory
     plt.figure(figsize=(12,6))
     for column in columns:
-        plt.plot(data.index, data[column], marker='o', label=column)
+        plt.plot(data.index, data[column], marker='', label=column)
+        for i in range(len(data) - 1):
+            start_point = data.index[i]
+            end_point = data.index[i + 1]
+            start_value = data.loc[start_point, column]
+            end_value = data.loc[end_point, column]
+    
+           # Add triangles
+            if end_value > start_value:
+                plt.scatter(end_point, end_value, marker='^', color='green', s=100)
+            else:
+                plt.scatter(end_point, end_value, marker='v', color='red', s=100)
+            
+        
+
 
     plt.title(f'{eval_name}, Model RP: {model_rp}, Batch RP: {generation_rp}')
     plt.xlabel('Generation')
@@ -82,7 +107,7 @@ def process_and_plot_csv_data_with_legend(file_paths, columns, eval_name, output
     plt.xticks(rotation=45)
     plt.grid(True)
     plt.tight_layout()
-    plt.legend(loc='lower right')
+    plt.legend(loc='upper right')
     plt.ylim(0,1.01)
 
     output_image_path = os.path.join(output_dir, f'{eval_name}_{model_rp}_{generation_rp}.jpeg')
