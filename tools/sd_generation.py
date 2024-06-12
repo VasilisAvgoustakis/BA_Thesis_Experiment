@@ -22,21 +22,14 @@ def generate_sd_batch(model, tokenizer, device, prompts, min_length, rp):
 
     # Decode the output sequences to get the generated text
     generated_batch = [tokenizer.decode(output, skip_special_tokens=True) for output in outputs]
-    print("Generated Batch: ", generated_batch)
-    #print(len(generated_batch))
-    #print("Generated Text: ", generated_text)
     generated_stories =  [' '.join(text.split("\n")[1:] if len(text.split("\n")) > 1 else text) for text in generated_batch]
-    #print(len(generated_stories))
-    #print("Generated Stories: ", generated_stories)
+
 
     # Continue generating if the text is shorter than 300 tokens
     for story in generated_stories:
         story_index = generated_stories.index(story)
-        #print(f"Intermittend length: {story_index+1} ", len(tokenizer.encode(story)))
+
         while len(tokenizer.encode(story)) < min_length:
-            
-            #print(" Entering Aug loop:")
-            #print(f"Intermittend length: {story_index+1} ", len(tokenizer.encode(story)))
 
             additional_input_ids = tokenizer.encode(story, return_tensors="pt").to(device)
            
@@ -60,11 +53,7 @@ def generate_sd_batch(model, tokenizer, device, prompts, min_length, rp):
                 break
             story += ' ' + additional_text[len(tokenizer.decode(tokenizer.encode(story), skip_special_tokens=True)):]
             generated_stories[story_index] = story  # Update the story directly in the list
-            #print(generated_stories[story_index])
-    #token_length = len(tokenizer.encode(story))
-    #print("Final length: ", token_length)
 
-    #print(generated_stories)
     return generated_stories
 
 
@@ -84,15 +73,12 @@ def inference_stories_batch(model, tokenizer, device, prompts, min_length, rp):
         do_sample=True,  # Set to True to return diverse samples
         num_return_sequences=1,  # Number of independently computed samples to generate
         pad_token_id=tokenizer.eos_token_id,  # Ensures that padding is handled correctly
-        #pad_token_id=None
     )
 
     # Decode the output sequences to get the generated text
     generated_texts = [tokenizer.decode(output, skip_special_tokens=True) for output in output_sequences]
     
-    #print("Generated Text: ", generated_text)
     generated_stories =  [' '.join(text.split("\n")[1:] if len(text.split("\n")) > 1 else text) for text in generated_texts]
-    #print("Generated Story: ", generated_story)
     
     
     # Continue generating if the text is shorter than 300 tokens
@@ -100,7 +86,7 @@ def inference_stories_batch(model, tokenizer, device, prompts, min_length, rp):
         story_index = generated_stories.index(story)
         print(f"Intermittend length: {story_index+1} ", len(tokenizer.encode(story)))
         while len(tokenizer.encode(story)) < min_length:
-            print(" Entering Aug loop:")
+            #print(" Entering Aug loop:")
             additional_input_ids = tokenizer.encode(story, return_tensors="pt").to(device)
            
             additional_sequences = model.module.generate(
