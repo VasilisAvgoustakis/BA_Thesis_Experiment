@@ -1339,3 +1339,5 @@ models/OPT/opt-finetuned_gen5_0_1.1/checkpoint-4440/global_step28325/mp_rank_00_
 models/OPT/opt-finetuned_gen5_0_1.1/checkpoint-4440/global_step28325/zero_pp_rank_0_mp_rank_00_optim_states.pt
 models/OPT/opt-finetuned_gen5_0_1.1/checkpoint-4440/global_step28325/zero_pp_rank_1_mp_rank_00_optim_states.pt
 data/sd/opt125m/gen5/gen5_sd_rp1.0.txt
+data/sd/opt125m/gen5/gen5_sd_rp1.1.txt
+tools/__pycache__/sd_generation.cpython-310.pyc
