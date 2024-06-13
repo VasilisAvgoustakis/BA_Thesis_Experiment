@@ -42,7 +42,7 @@ def process_and_plot_csv_data_with_legend_ltr(file_paths, columns, eval_name, ou
             else:
                 plt.scatter(end_point, end_value, marker='v', color='red', s=100)
         
-    plt.title(f'{eval_name}, Model RP: {model_rp}, Batch RP: {generation_rp}')
+    plt.title(f'{eval_name}, Model RP: {model_rp}, Inf RP: {generation_rp}')
     plt.xlabel('Generation')
     plt.ylabel('Values')
     plt.xticks(rotation=45)
@@ -101,7 +101,7 @@ def process_and_plot_csv_data_with_legend(file_paths, columns, eval_name, output
         
 
 
-    plt.title(f'{eval_name}, Model RP: {model_rp}, Batch RP: {generation_rp}')
+    plt.title(f'{eval_name}, Model RP: {model_rp}, Inf RP: {generation_rp}')
     plt.xlabel('Generation')
     plt.ylabel('Values')
     plt.xticks(rotation=45)

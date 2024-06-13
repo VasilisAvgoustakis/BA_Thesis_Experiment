@@ -23,7 +23,7 @@ def calculate_fluency(texts):
         unique_words = len(word_counts)
         scores.append(unique_words)
     
-    return np.array(scores).mean()
+    return np.array(scores).mean()/100
 
 
 def calculate_flexibility(texts, category_keywords):
@@ -39,7 +39,7 @@ def calculate_flexibility(texts, category_keywords):
                     categories.add(category)
         scores.append(len(categories))
     print(scores)
-    return np.array(scores).mean()
+    return np.array(scores).mean()/100
 
 
 
