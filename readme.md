@@ -2,7 +2,7 @@
 
 ## Description
 
-This repository contains the code and resources used for the experiments conducted as part of my Bachelor's Thesis. The primary focus is on fine-tuning of language models for investigating model collpase when training on generational synthetic data, by evaluating the generated text on different metrics. The experiments involve iteratively fine-tuning consequent generations of OPT-125m (Open Pre-trained Transformer) model from Hugging Faces using a custom dataset (WritingPrompts), evaluating each generation on story creation.
+This repository contains the code and resources used for the experiments conducted as part of my Bachelor's Thesis. The primary focus is on fine-tuning of language models for investigating model collapse when training on generational synthetic data, by evaluating the generated text on different metrics. The experiments involve iteratively fine-tuning consequent generations of OPT-125m (Open Pre-trained Transformer) model from Hugging Faces using a custom dataset (WritingPrompts), evaluating each generation on story creation.
 
 ## Experiment Overview
 ![Example Image](HighLeve_ML_Experiment4.webp)
